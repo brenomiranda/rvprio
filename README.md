@@ -12,12 +12,12 @@ In order to replicate the experiment follow these steps:
    - `git clone https://github.com/sallynathi/rvprio.git`
  
 2. Install the additional python packages required:
-   - `pip install -r requirements.txt`
+   - `make bootstrap`
 
 ### Evaluate the effectiveness of RVPrio with different classification algorithms
 
 1. Execute the `cross_validation.py` script 
-   - `python code/cross_validation.py`
+   - `make`
    
     Different classification algorithms can be selected by changing the value of `clf_name`. The possible values are:
     * GradientBoostingClassifier
