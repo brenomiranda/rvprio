@@ -1,0 +1,16 @@
+#!/bin/sh
+
+RED_BG="\033[41m"
+GREEN_BG="\033[42m"
+NO_COLOR="\033[0m"
+PYLINT_FAIL="pylint...................................................................${RED_BG}Failed${NO_COLOR}\n"
+PYLINT_SUCCESS="pylint...................................................................${GREEN_BG}Passed${NO_COLOR}\n"
+
+PYLINT_OUT=$(./venv/bin/pylint --score=n knotpdm)
+
+if [ "$PYLINT_OUT" ]; then
+    printf "$PYLINT_FAIL $PYLINT_OUT"
+    exit 1
+else
+    printf "$PYLINT_SUCCESS"
+fi
