@@ -8,17 +8,17 @@ In order to replicate the experiment follow these steps:
 
 ### Getting started
 
-1. Clone the repository 
+1. Clone the repository
    - `git clone https://github.com/sallynathi/rvprio.git`
- 
+
 2. Install the additional python packages required:
    - `make bootstrap`
 
 ### Evaluate the effectiveness of RVPrio with different classification algorithms
 
-1. Execute the `cross_validation.py` script 
+1. Execute the `cross_validation.py` script
    - `make`
-   
+
     Different classification algorithms can be selected by changing the value of `clf_name`. The possible values are:
     * GradientBoostingClassifier
     * RandomForest
@@ -29,7 +29,7 @@ In order to replicate the experiment follow these steps:
     * NeuralNet
     * NaiveBayes
     * AdaBoost
-    * GaussianProcess    
+    * GaussianProcess
 
 2. View output results stored in folder `results/`
 
@@ -458,4 +458,3 @@ We found issues in [Property-db](https://github.com/runtimeverification/property
 |----|----------------------------|---------------------------------------------------------------|---------|
 | 1  | SortedSet\_Comparable\.mop | https://github.com/runtimeverification/property-db/issues/7 | Pending |
 | 2  | TreeSet\_Comparable\.mop   | https://github.com/runtimeverification/property-db/issues/7 | Pending |
-
