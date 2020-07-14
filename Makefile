@@ -25,3 +25,6 @@ requirements:
 pre-commit-hooks:
 	cp hooks/pre-commit .git/hooks/pre-commit
 	$(PRE_COMMIT) install
+
+test:
+	venv/bin/pytest code/
