@@ -36,7 +36,7 @@ def get_truebugs_mapping(data_frame):
     return truebugs_list, tb_map_dict
 
 
-def prioritize_probBased_afterCV(predict_proba, y_pred):
+def prioritize_probBased_afterCV(predict_proba, y_pred, indices):
     prio_aux = []
     for i in range(len(indices)):
         id_ = indices[i]
@@ -106,7 +106,7 @@ if __name__ == '__main__':
 
     n_splits, n_repeats = 10, 30
     outdir = "results"
-    df = pd.read_csv("data/training.csv", index_col="id")
+    df = pd.read_csv("data/training.csv")
     indices = df.index
     truebugs, tb_map = get_truebugs_mapping(df)
 
