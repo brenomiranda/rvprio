@@ -23,18 +23,17 @@ from metric import apbd, apbd_norm, precision_at_k
 
 
 RandomState = np.random.seed(1)
+TARGET_LABEL = "BUGGY"
 
 
-def get_truebugs_mapping(Y_test, indices_test):
-    truebugs = []
-    tb_map = {}
-    for i in range(len(indices_test)):
-        id_ = indices_test[i]
-        class_ = Y_test[i]
-        if class_ == 1 or class_ == "TrueBug":  # buggy
-            truebugs.append(id_)
-        tb_map[id_] = class_    
-    return truebugs, tb_map
+def get_truebugs_mapping(data_frame):
+    buggy = data_frame[TARGET_LABEL]
+    true_buggy = data_frame.loc[data_frame[TARGET_LABEL] == 1][TARGET_LABEL]
+
+    truebugs_list = list(true_buggy.index)
+    tb_map_dict = dict(buggy)
+
+    return truebugs_list, tb_map_dict
 
 
 def prioritize_probBased_afterCV(predict_proba, y_pred):
@@ -107,9 +106,9 @@ if __name__ == '__main__':
 
     n_splits, n_repeats = 10, 30
     outdir = "results"
-    df = pd.read_csv("data/training.csv")
+    df = pd.read_csv("data/training.csv", index_col="id")
     indices = df.index
-    truebugs, tb_map = get_truebugs_mapping(df['BUGGY'].values, indices)    
+    truebugs, tb_map = get_truebugs_mapping(df)
 
     #================================================================================
     # RANDOM
@@ -198,3 +197,4 @@ if __name__ == '__main__':
     plt.legend(loc="lower right")
     plt.savefig(os.path.join(outdir, 'apbd_{}.pdf'.format(clf_name)), bbox_inches="tight", pad_inches=0)
     plt.show()
+    truebugs, tb_map = get_truebugs_mapping(df)

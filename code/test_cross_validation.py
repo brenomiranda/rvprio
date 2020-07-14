@@ -1194,7 +1194,6 @@ def test_get_truebugs_mapping():
         1169: 0
     }
 
-    truebugs, tb_map = cross_validation.get_truebugs_mapping(
-        df["BUGGY"].values, indices)
+    truebugs, tb_map = cross_validation.get_truebugs_mapping(df)
     assert (truebugs == truebugs_answer)
     assert (tb_map == tb_map_answer)
