@@ -25,6 +25,19 @@ from metric import apbd, apbd_norm, precision_at_k
 RandomState = np.random.seed(1)
 TARGET_LABEL = "BUGGY"
 
+AVAIABLE_CLASSIFIERS = {
+    "GradientBoostingClassifier": GradientBoostingClassifier(),
+    "RandomForest": RandomForestClassifier(),
+    "LogisticRegression": LogisticRegression(),
+    "NearestNeighbors": KNeighborsClassifier(),
+    "DecisionTree": DecisionTreeClassifier(),
+    "LinearSVM": SVC(probability=True),
+    "NeuralNet": MLPClassifier(alpha = 1),
+    "NaiveBayes": GaussianNB(),
+    "AdaBoost": AdaBoostClassifier(),
+    "GaussianProcess": GaussianProcessClassifier()
+}
+
 
 def get_truebugs_mapping(data_frame):
     buggy = data_frame[TARGET_LABEL]
@@ -63,30 +76,8 @@ def get_y_plot_list(prioritized, truebugs, tb_map):
 
 if __name__ == '__main__':
     #================================================================================
-    dict_classifiers = collections.OrderedDict()
-    dict_classifiers["GradientBoostingClassifier"] = GradientBoostingClassifier()
-    dict_classifiers["RandomForest"] = RandomForestClassifier()
-    dict_classifiers["LogisticRegression"] = LogisticRegression()
-    dict_classifiers["NearestNeighbors"] = KNeighborsClassifier()
-    dict_classifiers["DecisionTree"] = DecisionTreeClassifier()
-    dict_classifiers["LinearSVM"] = SVC(probability=True)
-    dict_classifiers["NeuralNet"] = MLPClassifier(alpha = 1)
-    dict_classifiers["NaiveBayes"] = GaussianNB()
-    dict_classifiers["AdaBoost"] = AdaBoostClassifier()
-    dict_classifiers["GaussianProcess"] = GaussianProcessClassifier()
-                                    
-    clf_name = "RandomForest"
-    clf_name = "LogisticRegression"
-    clf_name = "NearestNeighbors"
-    clf_name = "DecisionTree"
-    clf_name = "LinearSVM"
-    clf_name = "NeuralNet"
-    clf_name = "NaiveBayes"
-    clf_name = "AdaBoost"
-    clf_name = "GaussianProcess"
     clf_name = "GradientBoostingClassifier"
-
-    clf = dict_classifiers[clf_name]
+    clf = AVAIABLE_CLASSIFIERS["GradientBoostingClassifier"]
     #================================================================================
 
     n_splits, n_repeats = 10, 30
