@@ -72,9 +72,7 @@ def get_y_plot_list(prioritized, truebugs, tb_map):
         y_plot_list.append(accum_tb)
     return y_plot_list
 
-
-
-if __name__ == '__main__':
+def main():
     #================================================================================
     clf_name = "GradientBoostingClassifier"
     clf = AVAIABLE_CLASSIFIERS["GradientBoostingClassifier"]
@@ -174,3 +172,7 @@ if __name__ == '__main__':
     plt.savefig(os.path.join(outdir, 'apbd_{}.pdf'.format(clf_name)), bbox_inches="tight", pad_inches=0)
     plt.show()
     truebugs, tb_map = get_truebugs_mapping(df)
+
+
+if __name__ == '__main__':
+    main()
