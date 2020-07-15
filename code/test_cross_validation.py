@@ -1307,6 +1307,6 @@ def test_prioritize_probBased_afterCV():
         1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166, 1167, 1168, 1169
     ]
 
-    prioritized, prio_b_srtd, prio_nb_srtd = cross_validation.prioritize_probBased_afterCV(
-        predict_proba, y_pred, indices)
+    prioritized = cross_validation.prioritize_probBased_afterCV(predict_proba, indices)
+
     assert (prioritized == prioritized_answer)

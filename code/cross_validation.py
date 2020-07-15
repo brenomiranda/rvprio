@@ -36,31 +36,16 @@ def get_truebugs_mapping(data_frame):
     return truebugs_list, tb_map_dict
 
 
-def prioritize_probBased_afterCV(predict_proba, y_pred, indices):
-    prio_aux = []
-    for i in range(len(indices)):
-        id_ = indices[i]
-        pred = y_pred[i]
-        p_nonbuggy = predict_proba[i][0]
-        p_buggy = predict_proba[i][1]
-        prio_aux.append([id_, pred, p_buggy, p_nonbuggy])
-    
-    # Prioritize classification based on class probability
-    prioritized = prio_aux[:]
-    prioritized = sorted(prioritized, key = operator.itemgetter(0))  
-    prioritized = sorted(prioritized, key = operator.itemgetter(3))  
-    prioritized = sorted(prioritized, key = operator.itemgetter(2), reverse=True) 
+def get_nonbuggy_probabilities(predict_proba, indices):
+    return [[i, predict_proba[i][0]] for i in indices]
 
-    prio_b_srtd, prio_nb_srtd = [], []
-    for p in prioritized:
-        if p[1] == 1:
-            prio_b_srtd.append(p[0])
-        elif p[1] == 0:
-            prio_nb_srtd.append(p[0])
-    prio_final = [i[0] for i in prioritized]
-    prioritized = prio_final[:]
 
-    return prioritized, prio_b_srtd, prio_nb_srtd
+def prioritize_probBased_afterCV(predict_proba, indices):
+    prioritized = get_nonbuggy_probabilities(predict_proba, indices)
+    prioritized.sort(key = operator.itemgetter(1))
+    prioritized = [i[0] for i in prioritized]
+
+    return prioritized
 
 
 def get_y_plot_list(prioritized, truebugs, tb_map):
@@ -124,7 +109,7 @@ if __name__ == '__main__':
     predict_proba = cross_val_predict(clf_dummy, X, y, cv=n_repeats, method='predict_proba')
     y_pred = cross_val_predict(clf_dummy, X, y, cv=n_repeats)
     ## Prioritization
-    prioritized, prio_b_srtd, prio_nb_srtd = prioritize_probBased_afterCV(predict_proba, y_pred)
+    prioritized = prioritize_probBased_afterCV(predict_proba, indices)
     ## Metrics
     rand_apbd = apbd_norm(prioritized, truebugs)
     print("="*80)
@@ -150,7 +135,7 @@ if __name__ == '__main__':
     predict_proba = cross_val_predict(clf, X, y, cv=n_repeats, method='predict_proba')
     y_pred = cross_val_predict(clf, X, y, cv=n_repeats)
     ## Prioritization
-    prioritized, prio_b_srtd, prio_nb_srtd = prioritize_probBased_afterCV(predict_proba, y_pred)
+    prioritized = prioritize_probBased_afterCV(predict_proba, indices)
     ## Metrics
     gbc_apbd = apbd_norm(prioritized, truebugs)
     print("RVprio (classifier={})".format(clf_name))
