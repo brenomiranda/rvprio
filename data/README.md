@@ -1,6 +1,6 @@
 # Datasets
 
-## Features Selection
+## Features Selected
 The following table shows the importance of each features for our classifiers. [CSV file for the following table](https://github.com/sallynathi/rvprio/blob/master/data/features_selected.csv).
 
 | Feature                                              | Importance            |
